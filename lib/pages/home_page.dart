@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 import '../routers/routes.dart';
+import '../utils/widgets/CustomBottomNavBar.dart';
 
 class Homepage extends StatefulWidget {
   @override
@@ -8,124 +10,119 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  int _currentIndex = 0;
+
   @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        backgroundColor: Color(0x6f504e4e),
-        body: SafeArea(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment(0.0, 1.0),
-                  colors: const <Color>[
-                    Color(0xfffafafa),
-                    Color(0x6f504e4e),
-                  ],
-                  tileMode: TileMode.repeated),
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Column(
-                children: [
-                  /*Image.asset(
-                    'assets/logo.png',
-                    height: 200,
-                  ),*/
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text(
-                            "Ricky y Morty",
-                            style: TextStyle(
-                              color: Color(0xFF7DBB47),
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  Expanded(
-                    child: GridView.count(
-                      crossAxisCount: 2, // Número de columnas
-                      children: <Widget>[
-                        Card(
-                          elevation: 5.0,
-                          clipBehavior: Clip.hardEdge,
-                          child: InkWell(
-                            splashColor: Colors.blue.withAlpha(30),
-                            onTap: () {
-                              Navigator.pushNamed(context, Routes.CHARACTERS);
-                            },
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  /*Image.asset(
-                                    'assets/agregar-contacto.png',
-                                    height: 90,
-                                  ),*/
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "Personajes",
-                                    style: TextStyle(
-                                      color: Color(0xFFBB478E),
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                        ),
-                        Card(
-                          elevation: 5.0,
-                          clipBehavior: Clip.hardEdge,
-                          child: InkWell(
-                            splashColor: Colors.blue.withAlpha(30),
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, Routes.EPISODES);
-                            },
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  /*Image.asset(
-                                    'assets/equipo.png',
-                                    height: 90,
-                                  ),*/
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    "Episodios",
-                                    style: TextStyle(
-                                      color: Color(0xFFBB478E),
-                                      fontSize: 23,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xD0171717), // Fondo negro medio transparente
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0, // Sin sombra
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: 50.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0), // Radio de borde para redondear
+                color:  Color(0xFF05C2DC),
+              ),
+              child: IconButton(
+                icon: Icon(
+                  Icons.logout,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  // Aquí puedes agregar la lógica para cerrar sesión y redirigir al LoginPage
+                  Navigator.pushReplacementNamed(context, Routes.LOGIN);
+                },
               ),
             ),
           ),
+        ],
+      ),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            // Fondo de pantalla
+            Image.asset(
+              'assets/images/login_background.jpg',
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              fit: BoxFit.cover,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                color: Color(0xD0171717).withOpacity(0.7), // Fondo negro medio transparente
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/menu_banner.png',
+                      width: MediaQuery.of(context).size.width, // Ajusta el tamaño según tus necesidades
+                      height: 300.0, // Ajusta la altura según tus necesidades
+                      fit: BoxFit.contain,
+                      alignment: Alignment.center,
+                    ),
+                    // Resto de tu contenido
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Text(
+                          "¡Wubba lubba dub dub!",
+                          style: TextStyle(
+                            color: Color(0xFF05C2DC),
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Roboto',
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "¡Bienvenidos a la diversión, amigos!",
+                          style: TextStyle(
+                            color: Color(0xFFFFFFFF),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Roboto',
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-      );
+      ),bottomNavigationBar: CustomBottomNavBar( // Usa el widget personalizado
+      currentIndex: _currentIndex,
+      onItemSelected: (index) {
+        setState(() {
+          _currentIndex = index;
+        });
+        // Maneja la navegación según el índice seleccionado
+        if (index == 0) {
+          Navigator.pushNamed(context, Routes.CHARACTERS); // Navega a la página "Home"
+        } else if (index == 1) {
+          Navigator.pushNamed(context, Routes.HOME); // Navega a la página "Characters"
+        } else if (index == 2) {
+          Navigator.pushNamed(context, Routes.EPISODES); // Navega a la página "Episodes"
+        }
+      },
+    ),
+    );
   }
 }

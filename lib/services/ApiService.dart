@@ -15,6 +15,16 @@ class ApiService {
     }
   }
 
+  Future<Map<String, dynamic>> searchCharacters(String name) async {
+    final response = await dio.get("$baseUrl/character?name=$name");
+    if (response.statusCode == 200) {
+      print("searchCharacters-> ${response.data}");
+      return response.data;
+    } else {
+      throw Exception('Failed to search characters by name');
+    }
+  }
+
   Future<Map<String, dynamic>> fetchLocations() async {
     final response = await dio.get("$baseUrl/location");
     if (response.statusCode == 200) {
