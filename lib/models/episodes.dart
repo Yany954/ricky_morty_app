@@ -1,15 +1,15 @@
 import 'package:ricky_morty_app/models/episode.dart';
 
 class EpisodeList {
-  final int count;
-  final int pages;
+  final int? count;
+  final int? pages;
   final String? next;
   final String? prev;
   final List<Episode> episodes;
 
   EpisodeList({
-    required this.count,
-    required this.pages,
+    this.count,
+    this.pages,
     this.next,
     this.prev,
     required this.episodes,

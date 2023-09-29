@@ -10,38 +10,12 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xD0171717), // Fondo negro medio transparente
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0, // Sin sombra
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: 50.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0), // Radio de borde para redondear
-                color:  Color(0xFF05C2DC),
-              ),
-              child: IconButton(
-                icon: Icon(
-                  Icons.logout,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  // Aquí puedes agregar la lógica para cerrar sesión y redirigir al LoginPage
-                  Navigator.pushReplacementNamed(context, Routes.LOGIN);
-                },
-              ),
-            ),
-          ),
-        ],
-      ),
       body: SafeArea(
         child: Stack(
           children: [
@@ -90,7 +64,7 @@ class _HomepageState extends State<Homepage> {
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          "¡Bienvenidos a la diversión, amigos!",
+                          "Bienvenidos a la diversión amigos",
                           style: TextStyle(
                             color: Color(0xFFFFFFFF),
                             fontSize: 20,
@@ -105,24 +79,50 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
             ),
+            // Icono de Logout en la esquina superior derecha
+            Positioned(
+              top: 10,
+              right: 10,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: 50.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0), // Radio de borde para redondear
+                    color: Color(0xFF05C2DC),
+                  ),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.logout,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      // Aquí puedes agregar la lógica para cerrar sesión y redirigir al LoginPage
+                      Navigator.pushReplacementNamed(context, Routes.LOGIN);
+                    },
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
-      ),bottomNavigationBar: CustomBottomNavBar( // Usa el widget personalizado
-      currentIndex: _currentIndex,
-      onItemSelected: (index) {
-        setState(() {
-          _currentIndex = index;
-        });
-        // Maneja la navegación según el índice seleccionado
-        if (index == 0) {
-          Navigator.pushNamed(context, Routes.CHARACTERS); // Navega a la página "Home"
-        } else if (index == 1) {
-          Navigator.pushNamed(context, Routes.HOME); // Navega a la página "Characters"
-        } else if (index == 2) {
-          Navigator.pushNamed(context, Routes.EPISODES); // Navega a la página "Episodes"
-        }
-      },
-    ),
+      ),
+      bottomNavigationBar: CustomBottomNavBar( // Usa el widget personalizado
+        currentIndex: _currentIndex,
+        onItemSelected: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+          // Maneja la navegación según el índice seleccionado
+          if (index == 0) {
+            Navigator.pushNamed(context, Routes.CHARACTERS); // Navega a la página "Home"
+          } else if (index == 1) {
+            Navigator.pushNamed(context, Routes.HOME); // Navega a la página "Characters"
+          } else if (index == 2) {
+            Navigator.pushNamed(context, Routes.EPISODES); // Navega a la página "Episodes"
+          }
+        },
+      ),
     );
   }
 }

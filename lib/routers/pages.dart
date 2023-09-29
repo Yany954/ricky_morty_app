@@ -12,9 +12,7 @@ Map<String, Widget Function(BuildContext)>appRoutes(){
     //se llaman las rutas definidas en routes
     Routes.HOME:(_)=> Homepage(),
     Routes.LOGIN:(_)=> LoginPage(),
-    //Routes.DETAIL_CHARACTER:(_)=>DetailCharacterPage(),
     Routes.CHARACTERS:(_)=>CharactersPage(),
-    //Routes.EPISODE:(_)=>DetailEpisodePage(),
     Routes.EPISODES:(_)=>EpisodesPage()
 
 

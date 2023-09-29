@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../routers/routes.dart';
 import '../utils/widgets/CustomBottomNavBar.dart';
 
@@ -43,14 +42,14 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
   void _showCharacterDetails(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent, // Fondo transparente
+      backgroundColor: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       builder: (BuildContext context) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.white, // Fondo transparente
+            color: Colors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0),
               topRight: Radius.circular(20.0),
@@ -65,6 +64,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                   SizedBox(height: 10,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+
                     children: [
                       _buildRichText('Estado:', widget.character['status'], 20.0, Colors.black87, Color(0xFF06B1C7)),
                       _buildRichText('Especie:', widget.character['species'], 20.0, Colors.black87, Color(0xFF06B1C7)),
@@ -82,12 +82,52 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
     );
   }
 
+  Widget _buildCharacterImage() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20.0),
+      child: Image.network(
+        widget.character['image'],
+        width: 300.0,
+        height: 300.0,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  Widget _buildMoreDetailsButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        _showCharacterDetails(context);
+      },
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+        backgroundColor: Color(0xFF06B1C7),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.touch_app),
+          SizedBox(width: 8.0),
+          Text(
+            'Más detalles',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          // Fondo de pantalla
           Image.asset(
             'assets/images/login_background.jpg',
             width: MediaQuery.of(context).size.width,
@@ -98,7 +138,7 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
-              color: Color(0xD0171717).withOpacity(0.2), // Fondo negro medio transparente
+              color: Color(0xD0171717).withOpacity(0.2),
             ),
           ),
           SingleChildScrollView(
@@ -121,43 +161,9 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 20),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20.0), // Redondear los bordes de la imagen
-                      child: Image.network(
-                        widget.character['image'],
-                        width: 300.0, // Ancho de la imagen
-                        height: 300.0, // Alto de la imagen
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    _buildCharacterImage(),
                     SizedBox(height: 20),
-                    ElevatedButton(
-
-                      onPressed: () {
-                        _showCharacterDetails(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-                        backgroundColor: Color(0xFF06B1C7),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.touch_app),
-                          SizedBox(width: 8.0),
-                          Text(
-                            'Ver Detalles',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    _buildMoreDetailsButton(context),
                   ],
                 ),
               ),
@@ -165,20 +171,18 @@ class _CharacterDetailPageState extends State<CharacterDetailPage> {
           ),
         ],
       ),
-
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: _currentIndex,
         onItemSelected: (index) {
           setState(() {
             _currentIndex = index;
           });
-          // Maneja la navegación según el índice seleccionado
           if (index == 0) {
-            Navigator.pushNamed(context, Routes.CHARACTERS); // Navega a la página "Home"
+            Navigator.pushNamed(context, Routes.CHARACTERS);
           } else if (index == 1) {
-            Navigator.pushNamed(context, Routes.HOME); // Navega a la página "Characters"
+            Navigator.pushNamed(context, Routes.HOME);
           } else if (index == 2) {
-            Navigator.pushNamed(context, Routes.EPISODES); // Navega a la página "Episodes"
+            Navigator.pushNamed(context, Routes.EPISODES);
           }
         },
       ),
