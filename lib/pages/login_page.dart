@@ -15,16 +15,20 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         children: [
           _buildBackgroundImage(),
-          SingleChildScrollView(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _buildLogo(),
-                  SizedBox(height: 20.0),
-                  _buildLoginForm(),
-                ],
+          Center(
+            child: SingleChildScrollView(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center, // Centrar verticalmente
+                  crossAxisAlignment: CrossAxisAlignment.center, // Centrar horizontalmente
+                  children: [
+                    _buildLogo(),
+                    SizedBox(height: 20.0),
+                    _buildLoginForm(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -34,12 +38,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildBackgroundImage() {
-    return Positioned.fill(
-      child: Image.asset(
-        'assets/images/login_background.jpg',
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        fit: BoxFit.cover,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/login_background.jpg'),
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
@@ -56,25 +60,27 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildLoginForm() {
-    return Container(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          _buildTextField(
-            controller: usernameController,
-            labelText: 'Nombre de Usuario',
-            prefixIcon: Icons.person,
-          ),
-          SizedBox(height: 16.0),
-          _buildTextField(
-            controller: passwordController,
-            labelText: 'Contraseña',
-            prefixIcon: Icons.lock,
-            obscureText: true,
-          ),
-          SizedBox(height: 16.0),
-          _buildLoginButton(),
-        ],
+    return Center(
+      child: Container(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            _buildTextField(
+              controller: usernameController,
+              labelText: 'Nombre de Usuario',
+              prefixIcon: Icons.person,
+            ),
+            SizedBox(height: 16.0),
+            _buildTextField(
+              controller: passwordController,
+              labelText: 'Contraseña',
+              prefixIcon: Icons.lock,
+              obscureText: true,
+            ),
+            SizedBox(height: 16.0),
+            _buildLoginButton(),
+          ],
+        ),
       ),
     );
   }
