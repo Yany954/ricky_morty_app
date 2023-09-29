@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity),
-      initialRoute: Routes.LOGIN,
+      initialRoute: Routes.SPLASH,
       routes: appRoutes(),
     );
   }

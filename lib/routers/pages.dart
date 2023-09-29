@@ -5,6 +5,7 @@ import 'package:ricky_morty_app/pages/episode_page.dart';
 import 'package:ricky_morty_app/pages/episodes_page.dart';
 import 'package:ricky_morty_app/pages/home_page.dart';
 import 'package:ricky_morty_app/pages/login_page.dart';
+import 'package:ricky_morty_app/pages/splash_screen_page.dart';
 import 'package:ricky_morty_app/routers/routes.dart';
 
 Map<String, Widget Function(BuildContext)>appRoutes(){
@@ -13,7 +14,8 @@ Map<String, Widget Function(BuildContext)>appRoutes(){
     Routes.HOME:(_)=> Homepage(),
     Routes.LOGIN:(_)=> LoginPage(),
     Routes.CHARACTERS:(_)=>CharactersPage(),
-    Routes.EPISODES:(_)=>EpisodesPage()
+    Routes.EPISODES:(_)=>EpisodesPage(),
+    Routes.SPLASH: (_)=> SplashScreenPage(),
 
 
   };
