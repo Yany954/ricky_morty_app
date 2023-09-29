@@ -56,5 +56,9 @@ A continuación, se detallan los pasos para la instalación de la aplicación en
     flutter run -d ios
 
 
-
+### Credenciales
+La credenciales de la pagina de login son:
+Username - > usuario
+Password - > contrasena
+En minusculas
 
