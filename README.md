@@ -38,7 +38,7 @@ A continuación, se detallan los pasos para la instalación de la aplicación en
 1. Clona este repositorio en tu máquina:
 
    ```bash
-   git clone https://github.com/tuusuario/tu-repositorio.git
+   git clone https://github.com/Yany954/ricky_morty_app.git
 
 
 2. Navega al directorio del proyecto:
