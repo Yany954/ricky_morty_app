@@ -1,73 +1,79 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import '../models/character.dart';
 import '../models/episodes.dart';
 
 class ApiService {
-  final Dio dio = Dio();
   final baseUrl = "https://rickandmortyapi.com/api";
 
   Future<Map<String, dynamic>> fetchCharacters() async {
-    final response = await dio.get("$baseUrl/character");
+    final response = await http.get(Uri.parse("$baseUrl/character"));
     if (response.statusCode == 200) {
-
-      print("fetchingCharacters-> ${response.data}");
-      return response.data;
+      final data = json.decode(response.body);
+      print("fetchingCharacters-> $data");
+      return data;
     } else {
       throw Exception('Failed to load characters');
     }
   }
 
   Future<Map<String, dynamic>> searchCharacters(String name) async {
-    final response = await dio.get("$baseUrl/character?name=$name");
+    final response = await http.get(Uri.parse("$baseUrl/character?name=$name"));
     if (response.statusCode == 200) {
-      print("searchCharacters-> ${response.data}");
-      return response.data;
+      final data = json.decode(response.body);
+      print("searchCharacters-> $data");
+      return data;
     } else {
       throw Exception('Failed to search characters by name');
     }
   }
 
   Future<Map<String, dynamic>> fetchLocations() async {
-    final response = await dio.get("$baseUrl/location");
+    final response = await http.get(Uri.parse("$baseUrl/location"));
     if (response.statusCode == 200) {
-
-      print("fetchingLocations-> ${response.data}");
-      return response.data;
+      final data = json.decode(response.body);
+      print("fetchingLocations-> $data");
+      return data;
     } else {
       throw Exception('Failed to load locations');
     }
   }
 
   Future<EpisodeList> fetchEpisodes() async {
-    final response = await dio.get("$baseUrl/episode");
+    final response = await http.get(Uri.parse("$baseUrl/episode"));
     if (response.statusCode == 200) {
-      final episodeList = EpisodeList.fromJson(response.data);
-      print("fetchingEpisodes-> ${response.data}");
+      final data = json.decode(response.body);
+      final episodeList = EpisodeList.fromJson(data);
+      print("fetchingEpisodes-> $data");
       return episodeList;
     } else {
       throw Exception('Failed to load episodes');
     }
   }
+
   Future<EpisodeList> fetchNextEpisodesPage(int currentPage) async {
-    final response = await dio.get("$baseUrl/episode?page=${currentPage + 1}");
+    final response = await http.get(Uri.parse("$baseUrl/episode?page=${currentPage + 1}"));
     if (response.statusCode == 200) {
-      final episodeList = EpisodeList.fromJson(response.data);
-      print("fetchingEpisodes-> ${response.data}");
+      final data = json.decode(response.body);
+      final episodeList = EpisodeList.fromJson(data);
+      print("fetchingEpisodes-> $data");
       currentPage++; // Actualiza la página actual
       return episodeList;
     } else {
       throw Exception('Failed to load next episodes page');
     }
   }
+
   // Function to load characters from character URLs
   Future<List<Character>> charactersFromUrls(List<String> characterUrls) async {
     List<Character> characters = [];
     for (String url in characterUrls) {
       try {
-        final response = await dio.get("$url");
+        final response = await http.get(Uri.parse("$url"));
         if (response.statusCode == 200) {
-          final character = Character.fromJson(response.data);
+          final data = json.decode(response.body);
+          final character = Character.fromJson(data);
           characters.add(character);
         }
       } catch (e) {
@@ -76,5 +82,4 @@ class ApiService {
     }
     return characters;
   }
-
 }
